@@ -43,6 +43,10 @@ GIT_CONFIG_COUNT=1 \
 GIT_CONFIG_KEY_0=safe.directory \
 GIT_CONFIG_VALUE_0="$webroot" \
     composer --working-dir="$webroot" check-platform-reqs --no-dev
+grep -Fxq '* * * * * www-data cd /var/www/ibexa && php bin/console ibexa:cron:run --quiet --env=prod' \
+    /etc/cron.d/ibexa
+runuser -u www-data -- sh -c \
+    'cd /var/www/ibexa && php bin/console ibexa:cron:run --quiet --env=prod'
 
 curl --insecure --fail --silent --show-error \
     --cookie-jar "$cookie" "$base/login" >"$page"
@@ -147,7 +151,7 @@ GIT_CONFIG_VALUE_0="$webroot" \
 cat >"$result" <<EOF
 package_source=Official Ibexa Open Source v4.6 LTS tag $tag at commit $commit; PHP, MariaDB, Apache, Composer, Node.js and Yarn from Debian Trixie
 installed_version=Ibexa Open Source $tag ($commit); $php_version; MariaDB $(mariadb --version | head -n 1); Node.js $(node --version); Yarn $(yarn --version)
-runtime_checks=normal init; Apache, MariaDB and Postfix supervision; firstboot administrator HTTPS login; repository API content create and publish; authenticated REST read; direct MariaDB persistence; Adminer and Webmin HTTPS endpoints
+runtime_checks=normal init; Apache, MariaDB and Postfix supervision; installed and executed Ibexa scheduler command; firstboot administrator HTTPS login; repository API content create and publish; authenticated REST read; direct MariaDB persistence; Adminer and Webmin HTTPS endpoints
 updater_command=Follow the Ibexa 4.6 supervised Composer update procedure; query the official oss-skeleton v4.6 tags and run composer outdated --direct --locked before maintenance
 updater_result=official maintained v4.6 tag candidate $candidate discovered without changing composer.lock; Composer advisory audit reported no known vulnerability advisories
 updater_channel=https://github.com/ibexa/oss-skeleton.git v4.6 release tags and https://repo.packagist.org locked Composer dependencies
