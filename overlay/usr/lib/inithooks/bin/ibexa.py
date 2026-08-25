@@ -13,8 +13,7 @@ import re
 import sys
 import getopt
 import time
-
-from passlib.apps import phpass_context
+from subprocess import check_output
 
 import inithooks_cache
 from libinithooks.dialog_wrapper import Dialog
@@ -61,14 +60,18 @@ def main():
             "admin@example.com")
 
     inithooks_cache.write('APP_EMAIL', email)
-    hashpass = phpass_context.hash(password)
+    hashpass = check_output([
+        'php', '-r',
+        'echo password_hash($argv[1], PASSWORD_BCRYPT);',
+        password,
+    ], text=True)
     today_unixtime = int(time.time())
 
     m = MySQL()
 
-    m.execute('UPDATE ibexa.ezuser SET password_hash=%s  WHERE login="admin";', (hashpass))
-    m.execute('UPDATE ibexa.ezuser SET password_updated_at=%s  WHERE login="admin";', (today_unixtime))
-    m.execute('UPDATE ibexa.ezuser SET email=%s WHERE login="admin";', (email))
+    m.execute('UPDATE ibexa.ezuser SET password_hash=%s  WHERE login="admin";', (hashpass,))
+    m.execute('UPDATE ibexa.ezuser SET password_updated_at=%s  WHERE login="admin";', (today_unixtime,))
+    m.execute('UPDATE ibexa.ezuser SET email=%s WHERE login="admin";', (email,))
 #    m.execute('UPDATE ezplatform.ezcontentobject_name SET name="TurnKey Linux eZ Platform" WHERE contentobject_id="1"')
 
 

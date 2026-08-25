@@ -5,3 +5,7 @@
 
 [ -e $INITHOOKS_CONF ] && . $INITHOOKS_CONF
 $INITHOOKS_PATH/bin/ibexa.py --pass="$APP_PASS" --email="$APP_EMAIL"
+
+cd /var/www/ibexa
+php bin/console cache:clear --env=prod
+chown -R www-data:www-data var/cache

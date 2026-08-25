@@ -1,3 +1,20 @@
+turnkey-ibexa-19.0 (1) turnkey; urgency=low
+
+  * Update Ibexa Open Source to maintained v4.6.32 LTS from its official Git
+    tag, pinned to the upstream release commit.
+
+  * Upgrade the appliance base to Debian 13 Trixie, including PHP 8.4,
+    MariaDB 11.8, Node.js 20 and Debian's Yarn package.
+
+  * Update the install and firstboot integrations for current Ibexa, PHP and
+    MariaDB behavior. Clear the production cache after setting the initial
+    administrator credentials so the configured password works immediately.
+
+  * Add focused acceptance coverage for administrator login, published
+    content persistence, the REST API and upstream update discovery.
+
+ -- TurnKey GNU/Linux <admin@turnkeylinux.org>  Tue, 25 Aug 2026 07:00:00 +0000
+
 turnkey-ibexa-18.0 (1) turnkey; urgency=low
 
   * eZ Platform renamed to Ibexa DXP; install latest LTS: v3.3.37.

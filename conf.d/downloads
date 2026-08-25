@@ -1,17 +1,11 @@
 #!/bin/bash -ex
 
-# dynamically pull major-minor LTS version from website
-REL_PAGE=https://support.ibexa.co/Public/service-life
-LTS_VER=$(curl $REL_PAGE \
-            | sed -En "s|.*Ibexa-DXP-(v[0-9.]+)-LTS.*|\1|p" \
-            | sort -V \
-            | tail -1)
-
-# dynamically get full LTS version from gh_releases
 REPO=ibexa/oss-skeleton
-VER=$(gh_releases $REPO | grep $LTS_VER | sort -V | tail -1)
+VER=v4.6.32
+COMMIT=bcd755b140abbf72a19c2231360a82b3f3408a1f
 
 WEBROOT="/var/www/$(dirname $REPO)"
 URL="https://github.com/$REPO"
 
-git clone --depth 1 --branch=$VER $URL $WEBROOT
+git clone --depth 1 --branch="$VER" "$URL" "$WEBROOT"
+test "$(git -C "$WEBROOT" rev-parse HEAD)" = "$COMMIT"

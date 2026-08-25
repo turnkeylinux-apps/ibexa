@@ -6,7 +6,9 @@ php-curl
 php-intl
 php-xsl
 php-mbstring
+php-bcmath
+php-zip
 bzip2
 make
-
-python3-passlib
+nodejs
+yarnpkg
