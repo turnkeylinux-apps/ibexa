@@ -12,11 +12,12 @@ and on top of that:
 
 - Ibexa configurations:
    
-   - Installed from upstream source code to /var/www/ibexa
+   - Ibexa Open Source 4.6 LTS is installed from the official upstream source
+     at ``/var/www/ibexa``.
 
    **Security note**: Updates to Ibexa may require supervision so
    they **ARE NOT** configured to install automatically. See `Ibexa
-   documentation`_ for upgrading.
+   documentation`_ for the supported update procedure.
 
 - SSL support out of the box.
 - `Adminer`_ administration frontend for MySQL (listening on port
@@ -39,5 +40,5 @@ Credentials *(passwords set at first boot)*
 .. _Ibexa: https://ibexa.co
 .. _TurnKey Core: https://www.turnkeylinux.org/core
 .. _Adminer: https://www.adminer.org/
-.. _Ibexa documentation: https://doc.ibexa.co/en/3.3/updating/update_ibexa_dxp/
+.. _Ibexa documentation: https://doc.ibexa.co/en/4.6/updating/update_ibexa_dxp/
 .. _Ibexa blog: https://www.ibexa.co/blog

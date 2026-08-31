@@ -1,0 +1,1 @@
+* * * * * www-data cd /var/www/ibexa && php bin/console ibexa:cron:run --quiet --env=prod
